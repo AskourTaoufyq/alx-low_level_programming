@@ -1,10 +1,11 @@
 #include "lists.h"
 
 /**
-  * print_list - print all the elements of a list_t list.
-  * @h: the list
-  * Return: to number of nodes
-  **/
+ * print_list : display all elements of a list_t linked list .
+ * @h : linked list
+ * return : num of nodes
+**/
+
 size_t print_list(const list_t *h)
 {
 	int count = 0;
