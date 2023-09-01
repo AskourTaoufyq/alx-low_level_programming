@@ -7,16 +7,21 @@
  */
 void print_binary(unsigned long int n)
 {
-	int bit, binary = 0, i = 1;
+	int i, count = 0;
+	unsigned long int current;
 
-	while (n)
+	for (i = 63; i >= 0; i--)
 	{
-		bit = n & 1;
-		n >>= 1;
+		current = n >> i;
 
-		binary += bit * i;
-		i *= 10;
+		if (current & 1)
+		{
+			_putchar('1');
+			count++;
+		}
+		else if (count)
+			_putchar('0');
 	}
-
-	printf("%d", binary);
+	if (!count)
+		_putchar('0');
 }
