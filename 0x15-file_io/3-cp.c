@@ -57,7 +57,7 @@ void close_file(int fd)
  */
 int main(int argc, char *argv[])
 {
-	int from, t, s, v;
+	int from, to, s, v;
 	char *buffer;
 
 	if (argc != 3)
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 	buffer = create_buffer(argv[2]);
 	from = open(argv[1], O_RDONLY);
 	s = read(from, buffer, 1024);
-	t = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
 	do {
 		if (from == -1 || s == -1)
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 		}
 
 		v = write(to, buffer, s);
-		if (t == -1 || v == -1)
+		if (to == -1 || v == -1)
 		{
 			dprintf(STDERR_FILENO,
 				"Error: Can't write to %s\n", argv[2]);
@@ -90,13 +90,13 @@ int main(int argc, char *argv[])
 		}
 
 		s = read(from, buffer, 1024);
-		t = open(argv[2], O_WRONLY | O_APPEND);
+		to = open(argv[2], O_WRONLY | O_APPEND);
 
 	} while (s > 0);
 
 	free(buffer);
 	close_file(from);
-	close_file(t);
+	close_file(to);
 
 	return (0);
 }
